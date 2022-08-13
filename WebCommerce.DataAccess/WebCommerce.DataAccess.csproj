@@ -16,4 +16,8 @@
     <ProjectReference Include="..\WebCommerce.Entities\WebCommerce.Entities.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Configurations\" />
+  </ItemGroup>
+
 </Project>

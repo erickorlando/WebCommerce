@@ -1,5 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using WebCommerce.Entities;
+using System.Reflection;
 
 namespace WebCommerce.DataAccess
 {
@@ -18,13 +18,7 @@ namespace WebCommerce.DataAccess
 
             // Fluent API
 
-            modelBuilder.Entity<Category>()
-                .Property(p => p.Name)
-                .HasMaxLength(50);
-            
-            modelBuilder.Entity<Category>()
-                .Property(p => p.Description)
-                .HasMaxLength(150);
+            modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
         }
     }
 }
