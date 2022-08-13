@@ -27,6 +27,7 @@
   <ItemGroup>
     <ProjectReference Include="..\WebCommerce.DataAccess\WebCommerce.DataAccess.csproj" />
     <ProjectReference Include="..\WebCommerce.Dto\WebCommerce.Dto.csproj" />
+    <ProjectReference Include="..\WebCommerce.Services\WebCommerce.Services.csproj" />
   </ItemGroup>
 
 </Project>

@@ -1,0 +1,15 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\WebCommerce.Dto\WebCommerce.Dto.csproj" />
+    <ProjectReference Include="..\WebCommerce.Entities\WebCommerce.Entities.csproj" />
+    <ProjectReference Include="..\WebCommerce.Repositories\WebCommerce.Repositories.csproj" />
+  </ItemGroup>
+
+</Project>
