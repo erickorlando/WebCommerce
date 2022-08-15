@@ -11,4 +11,8 @@ public class Product : BaseEntity
     public decimal UnitPrice { get; set; }
 
     public bool Discontinued { get; set; }
+
+    public string ImageUrl { get; set; } = null!;
+
+    public string Description { get; set; } = null!;
 }

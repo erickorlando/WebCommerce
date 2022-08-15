@@ -11,4 +11,7 @@
 
 /* COMO RECORD */
 
-public record ProductDtoResponse(int Id, string Name, decimal UnitPrice, string CategoryName);
+public record ProductDtoResponse(int Id, string Name, decimal UnitPrice, string CategoryName)
+{
+    public string ImageUrl { get; init; }
+}

@@ -14,5 +14,11 @@ public class ProductConfiguration : IEntityTypeConfiguration<Product>
         builder.Property(p => p.UnitPrice)
             .HasPrecision(11, 2);
 
+        builder.Property(p => p.Description)
+            .HasMaxLength(200);
+
+        builder.Property(p => p.ImageUrl)
+            .HasMaxLength(1000)
+            .IsUnicode(false);
     }
 }

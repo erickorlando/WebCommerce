@@ -17,6 +17,8 @@ public class CategoriesController : ControllerBase
         _context = context;
     }
 
+    // GET api/Categories
+    
     [HttpGet]
     public async Task<BaseResponseGeneric<List<Category>>> Get()
     {
@@ -35,6 +37,8 @@ public class CategoriesController : ControllerBase
 
         return response;
     }
+
+    // GET api/Categories/10
 
     [HttpGet("{id:int}")]
     [ProducesResponseType(typeof(BaseResponseGeneric<Category>), 200)]

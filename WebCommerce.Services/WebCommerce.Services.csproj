@@ -7,9 +7,17 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="AutoMapper" Version="11.0.1" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\WebCommerce.Dto\WebCommerce.Dto.csproj" />
     <ProjectReference Include="..\WebCommerce.Entities\WebCommerce.Entities.csproj" />
     <ProjectReference Include="..\WebCommerce.Repositories\WebCommerce.Repositories.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Profiles\" />
   </ItemGroup>
 
 </Project>

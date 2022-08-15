@@ -1,7 +1,9 @@
 using Microsoft.EntityFrameworkCore;
 using WebCommerce.DataAccess;
+using WebCommerce.Entities;
 using WebCommerce.Repositories;
 using WebCommerce.Services;
+using WebCommerce.Services.Profiles;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -13,7 +15,16 @@ builder.Services.AddDbContext<WebCommerceDbContext>(options =>
     options.EnableSensitiveDataLogging();
 });
 
+// Mapear el archivo appsettings.{Environment}.json con la clase
+builder.Services.Configure<AppSettings>(builder.Configuration);
+
+builder.Services.AddAutoMapper(config =>
+{
+    config.AddProfile<ProductProfile>();
+});
+
 builder.Services.AddTransient<IProductRepository, ProductRepository>();
+builder.Services.AddTransient<IFileUploader, FileUploader>();
 builder.Services.AddTransient<IProductService, ProductService>();
 
 builder.Services.AddControllers();
