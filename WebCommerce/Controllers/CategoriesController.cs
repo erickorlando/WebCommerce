@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using WebCommerce.DataAccess;
 using WebCommerce.Dto.Response;
@@ -20,6 +21,7 @@ public class CategoriesController : ControllerBase
     // GET api/Categories
     
     [HttpGet]
+    [Authorize]
     public async Task<BaseResponseGeneric<List<Category>>> Get()
     {
         var response = new BaseResponseGeneric<List<Category>>();

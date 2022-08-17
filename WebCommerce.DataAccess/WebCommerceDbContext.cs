@@ -1,9 +1,10 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using System.Reflection;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 
 namespace WebCommerce.DataAccess
 {
-    public class WebCommerceDbContext : DbContext
+    public class WebCommerceDbContext : IdentityDbContext<WebCommerceUserIdentity>
     {
         public WebCommerceDbContext(DbContextOptions<WebCommerceDbContext> options)
             :base(options)
@@ -19,6 +20,9 @@ namespace WebCommerce.DataAccess
             // Fluent API
 
             modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
+
+            modelBuilder.Ignore("AspNetUserClaims");
+            modelBuilder.Ignore("AspNetUserLogins");
         }
     }
 }
