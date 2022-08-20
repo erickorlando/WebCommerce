@@ -9,6 +9,22 @@ namespace WebCommerce.DataAccess.Migrations
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
+            // Crear un SP dentro del migration
+//            migrationBuilder.Sql(@"CREATE PROCEDURE uspSelectConcerts (@filter NVARCHAR(50))
+//AS
+//BEGIN
+
+//	SELECT 
+//		C.Id,
+//		C.Title,
+//		C.UnitPrice,
+//		G.Description Genre
+//	FROM Concert C (NOLOCK)
+//	INNER JOIN Genre G (NOLOCK) ON C.GenreId = G.Id
+//	WHERE C.Title LIKE '%' + @filter + '%'
+
+//END");
+            
             migrationBuilder.CreateTable(
                 name: "AspNetRoles",
                 columns: table => new

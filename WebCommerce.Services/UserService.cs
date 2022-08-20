@@ -59,23 +59,23 @@ public class UserService : IUserService
             {
                 response.UserId = user.Id;
 
-                if (!await _roleRepository.RoleExistsAsync("Administrator"))
+                if (!await _roleRepository.RoleExistsAsync(Constants.RolAdministrator))
                 {
-                    await _roleRepository.CreateAsync(new IdentityRole("Administrator"));
+                    await _roleRepository.CreateAsync(new IdentityRole(Constants.RolAdministrator));
                 }
                 
-                if (!await _roleRepository.RoleExistsAsync("User"))
+                if (!await _roleRepository.RoleExistsAsync(Constants.RolUser))
                 {
-                    await _roleRepository.CreateAsync(new IdentityRole("User"));
+                    await _roleRepository.CreateAsync(new IdentityRole(Constants.RolUser));
                 }
 
                 if (await _userRepository.Users.CountAsync() == 1)
                 {
-                    await _userRepository.AddToRoleAsync(user, "Administrator");
+                    await _userRepository.AddToRoleAsync(user, Constants.RolAdministrator);
                 }
                 else
                 {
-                    await _userRepository.AddToRoleAsync(user, "User");
+                    await _userRepository.AddToRoleAsync(user, Constants.RolUser);
                 }
 
                 response.Success = true;
@@ -115,13 +115,20 @@ public class UserService : IUserService
 
             response.FullName = $"{identity.Name} {identity.LastName}";
 
+            var roles = await _userRepository.GetRolesAsync(identity);
+
             var authClaims = new List<Claim>
             {
                 new Claim(ClaimTypes.Name, identity.UserName),
                 new Claim(ClaimTypes.Email, identity.Email),
                 new Claim(ClaimTypes.GivenName, response.FullName),
-                new Claim(ClaimTypes.Sid, identity.Id)
+                new Claim(ClaimTypes.Sid, identity.Id),
             };
+
+            foreach (var role in roles)
+            {
+                authClaims.Add(new Claim(ClaimTypes.Role, role));
+            }
 
             var llaveSimetrica = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_options.Value.Jwt.SecretKey));
 

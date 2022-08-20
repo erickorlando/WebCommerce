@@ -9,19 +9,21 @@ namespace WebCommerce.Controllers;
 
 [ApiController]
 [Route("api/[controller]")]
+[Authorize]
 public class CategoriesController : ControllerBase
 {
     private readonly WebCommerceDbContext _context;
+    private readonly ILogger<CategoriesController> _logger;
 
-    public CategoriesController(WebCommerceDbContext context)
+    public CategoriesController(WebCommerceDbContext context, ILogger<CategoriesController> logger)
     {
         _context = context;
+        _logger = logger;
     }
 
     // GET api/Categories
-    
+    [AllowAnonymous]
     [HttpGet]
-    [Authorize]
     public async Task<BaseResponseGeneric<List<Category>>> Get()
     {
         var response = new BaseResponseGeneric<List<Category>>();
@@ -45,6 +47,7 @@ public class CategoriesController : ControllerBase
     [HttpGet("{id:int}")]
     [ProducesResponseType(typeof(BaseResponseGeneric<Category>), 200)]
     [ProducesResponseType(typeof(BaseResponseGeneric<Category>), 404)]
+    [Authorize(Roles = Constants.RolMixed)]
     public async Task<IActionResult> Get(int id)
     {
         var response = new BaseResponseGeneric<Category>();
@@ -66,6 +69,7 @@ public class CategoriesController : ControllerBase
     }
 
     [HttpPost]
+    [Authorize(Roles = Constants.RolAdministrator)]
     public async Task<IActionResult> Post(Category category)
     {
         var response = new BaseResponseGeneric<int>();
@@ -77,10 +81,13 @@ public class CategoriesController : ControllerBase
 
             response.Data = category.Id;
             response.Success = true;
+
+            //throw new ApplicationException("No pude grabar!");
         }
         catch (Exception ex)
         {
             response.Message = ex.Message;
+            _logger.LogCritical(ex, "Ocurrio el error en {message}", ex.Message);
         }
 
         return Ok(response);
@@ -89,6 +96,7 @@ public class CategoriesController : ControllerBase
     [HttpPut("{id:int}")]
     [ProducesResponseType(typeof(BaseResponse), 200)]
     [ProducesResponseType(typeof(BaseResponse), 404)]
+    [Authorize(Roles = Constants.RolAdministrator)]
     public async Task<IActionResult> Put(int id, Category category)
     {
         var response = new BaseResponse();
